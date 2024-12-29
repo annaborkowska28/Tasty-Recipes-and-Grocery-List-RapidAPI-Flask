@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="top">
+        <div class="title"><h1>Tasty</h1></div>
+    </div>
+    <div class="content">
+        <div class="card">
+            <h1> {{ recipe.name }}</h1>
+            <h2> {{ recipe.description }}</h2>
+            <h2>Ingredients:</h2>
+            {%for ingredient in ingredient_list:%}
+            <h3>{{ingredient}}</h3>
+            {%endfor%}
+            <h2>Instructions:</h2>
+               {%for instruction in instruction_list:%}
+                     <h3>{{instruction}}</h3>
+                {%endfor%}
+        </div>
+    </div>
+</div>
+</body>
+</html>

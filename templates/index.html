@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{%for recipe in all_recipes%}
+<br>
+<div class="content">
+    <div class="card">
+        <h1>{{recipe.name}}</h1>
+    <h2>{{recipe.image_url}}</h2>
+<hr>
+    <h2>{{recipe.description}}</h2>
+        <a href="{{ url_for('single_recipe', index=recipe.id) }}">Read</a>
+
+    </div>
+</div>
+{%endfor%}
+
+
+</body>
+</html>
