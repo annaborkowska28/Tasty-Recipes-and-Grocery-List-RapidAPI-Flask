@@ -1,0 +1,9 @@
+.card{
+float: left;
+width: 25%;
+ display: table;
+}
+
+* {
+  box-sizing: border-box;
+}

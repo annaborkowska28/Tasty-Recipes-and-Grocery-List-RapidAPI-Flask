@@ -18,16 +18,15 @@ if response.status_code == 200:
 	data = response.json()
 	recipes = data.get('results', [])
 
-
 	for recipe in recipes:
 		recipe_id = recipe['id']
-		recipe_name = recipe['name']
 		image_url = recipe['thumbnail_url']
+		recipe_name = recipe['name']
+
 		description = recipe['description']
 
 		ingredients = recipe['sections'][0]['components']
 		ingredient_list = [ingredient['raw_text'] for ingredient in ingredients]
-
 		instructions = recipe['instructions']
 		instruction_list = [instruction['display_text'] for instruction in instructions]
 
@@ -47,7 +46,7 @@ def single_recipe(index):
 	for rec in recipes:
 		if rec['id'] == index:
 			requested_recipe = rec
-	return render_template('single.html', recipe=requested_recipe, ingredient_list=ingredient_list, instruction_list=instruction_list)
+	return render_template('single.html', recipe=requested_recipe, ingredient_list=ingredient_list, instruction_list=instruction_list, image_url=image_url)
 
 
 
