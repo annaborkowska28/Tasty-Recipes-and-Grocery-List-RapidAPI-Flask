@@ -1,3 +1,1 @@
-# RapidAPI-tasty-Flask
-Simple web application where I use API from RapidAPI
-Additionally, I use Flask framework
+This project utilizes the RAPIDAPI Tasty API to access a vast collection of recipes and culinary information. The code is written in Python and uses the Flask module to create a web application that interacts with the Tasty API. Users can search for recipes, view details, and explore various culinary options through this platform.
