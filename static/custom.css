@@ -1,9 +1,24 @@
-.card{
-float: left;
-width: 25%;
- display: table;
+
+h2 {
+color: #0085a1;
+
 }
 
-* {
-  box-sizing: border-box;
+
+
+.back-to-top {
+  position: fixed;
+  bottom: 10px;
+  right: 50px;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 20px;
+  text-decoration: none;
+  border-radius: 5px;
 }
+
+.back-to-top:hover {
+  background-color: #555;
+}
+
+

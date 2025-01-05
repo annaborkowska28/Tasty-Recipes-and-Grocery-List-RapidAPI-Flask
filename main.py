@@ -1,14 +1,23 @@
+
 import requests
 from flask import Flask, render_template
+from flask_bootstrap import Bootstrap5
+import os
+from dotenv import load_dotenv
+
 
 
 app = Flask(__name__)
+Bootstrap5(app)
 url = "https://tasty.p.rapidapi.com/recipes/list"
 
 querystring = {"from": "0", "size": "20", "tags": "under_30_minutes"}
 
+
+
+load_dotenv()
 headers = {
-	"x-rapidapi-key": "db8c349c0bmsh53af7fa3ab0b86bp1455e3jsnae05c5c7d1f5",
+	"x-rapidapi-key": os.getenv('KEY'),
 	"x-rapidapi-host": "tasty.p.rapidapi.com"
 }
 
@@ -21,8 +30,8 @@ if response.status_code == 200:
 	for recipe in recipes:
 		ingredients = recipe['sections'][0]['components']
 		ingredient_list = [ingredient['raw_text'] for ingredient in ingredients]
-		instructions = recipe['instructions']
-		instruction_list = [instruction['display_text'] for instruction in instructions]
+		recipe['ingredients'] = ingredient_list
+
 else:
 	print("Failed to retrieve data. Status code:", response.status_code)
 
@@ -35,13 +44,21 @@ def home():
 @app.route('/rec/<int:index>')
 def single_recipe(index):
 	requested_recipe = None
-	for rec in recipes:
-		if rec['id'] == index:
-			requested_recipe = rec
-	return render_template('single.html', recipe=requested_recipe, ingredient_list=ingredient_list, instruction_list=instruction_list)
+	for recipe_id in recipes:
+		if recipe_id['id'] == index:
+			requested_recipe = recipe_id
+	return render_template('single.html', recipe=requested_recipe)
 
 
 
+@app.route('/contact')
+def contact():
+	return render_template("contact.html")
+
+
+@app.route('/about')
+def about():
+	return render_template('about.html')
 
 if __name__ == '__main__':
 	app.run(debug=True)

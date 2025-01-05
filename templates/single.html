@@ -1,28 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div class="recipe-card">
-    <div class="title"><h1>{{recipe.name}}</h1></div>
+{% extends 'base.html' %}
+{% block title %}Recipes by Tasty {% endblock %}
 
-    <div class="content">
-        <div class="card">
-                <img src="{{recipe.thumbnail_url}}" style="height: 150px;">
-            <h2> {{ recipe.description }}</h2>
-            <h2>Ingredients:</h2>
-            {%for ingredient in ingredient_list:%}
-            <h3>{{ingredient}}</h3>
-            {%endfor%}
-            <h2>Instructions:</h2>
-            {%for instruction in instruction_list:%}
-                <h3>{{instruction}}</h3>
-            {%endfor%}
+
+{%include 'header.html'%}
+{% block content %}
+<style>
+    h2, h4, h5 {
+        color: #0085a1;
+    }
+</style>
+
+<br>
+<div class="container">
+        <div class="clearfix">
+
+            <img src="{{recipe.thumbnail_url}}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="...">
+            <h2>{{recipe.name}}</h2>
+            <p>
+                {{recipe.description}}
+            </p>
+
+            <div class="container">
+              <div class="row">
+                  <div class="col">
+                        <i class="far fa-clock"></i>
+                        <h5>Prep Time: </h5>
+                        <p>{{recipe.prep_time_minutes}}</p>
+                  </div>
+                    <div class="col">
+                        <i class="fas fa-clock"></i>
+                        <h5>Cook Time: </h5>
+                        <p>{{recipe.cook_time_minutes}}</p>
+                    </div>
+                        <div class="col">
+                            <i class="fas fa-user-friends"></i>
+                            <h5>Servings: </h5>
+                            <p>{{recipe.num_servings}}</p>
+                        </div>
+              </div>
+            </div>
+            <div class="mb-4">
+                <div class="ingredients">
+                <h4>Ingredients: </h4>
+                <ul>
+                {% for ingredient in recipe['ingredients'] %}
+                    <li>{{ ingredient }}</li>
+                {% endfor %}
+                </ul>
+                </div>
+                <div class="instructions">
+                <h4>Instructions:</h4>
+                <ol>
+                {%for instruction in recipe.instructions:%}
+                    <li>{{instruction['display_text'] }}</li>
+                {%endfor%}
+                </ol>
+                </div>
+            </div>
         </div>
-    </div>
+
 </div>
 
-</body>
-</html>
+<a href="#">Back to top</a>
+{% endblock %}
