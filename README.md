@@ -9,11 +9,20 @@ Tasty Recipes and Grocery List is a web application that fetches and displays re
 -  View Grocery List: Displays the aggregated grocery list with summed quantities of ingredients.
 - Contact Page: Users can send messages to the app creator via email.
 
-## Tech Stack
-- Backend: Flask
-- Styling: Bootstrap
-- API: Tasty API
-- Email: SMTP with Gmail
+## Technologies Used:
+- Flask: To create and manage web routes and handle HTTP requests.
+
+- Jinja2: For rendering dynamic HTML templates.
+
+- Python: For backend logic and data processing.
+
+- HTML & Bootstrap: To create responsive and styled web pages.
+
+- requests: To fetch data from the Tasty API.
+
+- smtplib: For sending emails.
+
+- python-dotenv: To manage environment variables securely.
 
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
