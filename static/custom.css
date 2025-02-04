@@ -5,6 +5,14 @@ color: #0085a1;
 }
 
 
+h1, h2, h4, h5 {
+color: #0085a1;
+}
+
+.card-body .card-title {
+    color: #0085a1;
+}
+
 
 .back-to-top {
   position: fixed;

@@ -8,8 +8,10 @@
 {%include 'header.html'%}
 
 {% block content %}
-<!--<div class="container">-->
-<img src="static/img/tasty.webp" class="img-fluid" width="100%" alt="food">
+<div class="container-fluid">
+
+<img src="static/img/tasty_img_main.png" class="custom-img" width="100%" loading="lazy" alt="food">
+
 <hr class="solid">
 
 <div class="container">
@@ -73,7 +75,7 @@
 
             <div class="col-lg-4 d-flex justify-content-center mt-5 align-items-stretch">
             <div class="card" style="width: 25rem;">
-                <img src="{{recipe.thumbnail_url}}" class="card-img-top" style="height: 300px;">
+                <img src="{{recipe.thumbnail_url}}" class="card-img-top"  loading="lazy" style="height: 300px;">
                 <div class="card-body">
                     <h5 class="card-title">{{ recipe.name }}</h5>
                     <p class="card-text">{{ recipe.description }}</p>
@@ -86,6 +88,7 @@
             </div>
         {% endif %}
     {% endfor %}
+</div>
 </div>
 </div>
 {% endblock %}

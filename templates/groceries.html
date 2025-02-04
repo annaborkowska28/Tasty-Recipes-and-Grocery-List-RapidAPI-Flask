@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Recipes by Tasty {% endblock %}
+
+
+{%include 'header.html'%}
+{% block content %}
+
+
+<div class="'container">
+  <h1> Grocery list</h1>
+  <ul>
+    {%for item in grocery_list: %}
+    <li>{{item.quantity}} {{item.unit}} - {{item.ingredient}} </li>
+      {%endfor%}
+  </ul>
+<a href="/" class="btn btn-primary">Back to All Recipes</a></div>
+{%endblock%}
