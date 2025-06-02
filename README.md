@@ -27,6 +27,15 @@ Tasty Recipes and Grocery List is a web application that fetches and displays re
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
 
+## ## 🔐 API and Environment Configuration
+
+### How to get an API key?
+1. Sign up or log in to [RapidAPI](https://rapidapi.com/auth?referral=hub).
+2. Search for **Tasty API** and subscribe to a plan.
+3. Copy your **API key** and paste it into the `.env` file.
+
+
+To run the application, create a `.env` file in the main directory and add your own credentials
 
 
 
