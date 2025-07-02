@@ -25,4 +25,46 @@ color: #0085a1;
   background-color: #555;
 }
 
+.card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease;
+}
 
+
+.recipe-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recipe-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0; /* startowy stan ukrycia */
+}
