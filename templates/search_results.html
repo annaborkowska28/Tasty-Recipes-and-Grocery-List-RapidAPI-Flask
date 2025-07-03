@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2 class="mb-4">Search results for "{{ query }}"</h2>
+
+  {% if results %}
+    <div class="row">
+      {% for recipe in results %}
+        <div class="col-lg-4 d-flex justify-content-center mt-4">
+          <div class="card recipe-card shadow-sm" style="width: 25rem;">
+            <a href="{{ url_for('single_recipe', index=recipe.id) }}">
+              <img src="{{ recipe.thumbnail_url }}" class="card-img-top img-fluid object-fit-cover"
+                   style="height: 300px;" alt="{{ recipe.name }}">
+            </a>
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <h5 class="card-title">{{ recipe.name }}</h5>
+                <p class="card-text">{{ recipe.description | truncate(200, True, '...') }}</p>
+              </div>
+              <a href="{{ url_for('single_recipe', index=recipe.id) }}" class="btn btn-primary mt-3">
+                See more details
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No recipes matched your search.</p>
+        <a href="{{ url_for('home') }}" class="btn btn-outline-primary mt-3">Return to home page</a>
+
+  {% endif %}
+{% endblock %}
