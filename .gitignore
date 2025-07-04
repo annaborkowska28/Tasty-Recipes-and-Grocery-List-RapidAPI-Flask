@@ -1,3 +1,6 @@
 .env
 __pycache__
 uwsgi.ini
+test_plan_PL.md
+test_result_PL.md
+test_plan_ENG.md

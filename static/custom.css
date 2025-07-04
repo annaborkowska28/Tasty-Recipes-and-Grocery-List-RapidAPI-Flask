@@ -1,7 +1,7 @@
 
 
 
-h1, h2, h4, h5 {
+h1, h2, h3, h4, h5 {
 color: #0085a1;
 }
 
@@ -66,5 +66,5 @@ color: #0085a1;
 
 .animate-fade-in {
   animation: fadeInUp 1s ease-out forwards;
-  opacity: 0; /* startowy stan ukrycia */
+  opacity: 0;
 }

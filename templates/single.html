@@ -6,61 +6,68 @@
 {% block content %}
 
 
-<br>
-<div class="container">
-        <div class="clearfix">
+<div class="container my-5">
+  <div class="card shadow rounded-4 overflow-hidden">
 
-            <img src="{{recipe.thumbnail_url}}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="...">
-            <h2>{{recipe.name}}</h2>
-            <p>
-                {{recipe.description}}
-            </p>
+    <div class="row g-0">
 
-            <div class="container">
-              <div class="row">
-                  <div class="col">
-                        <i class="far fa-clock"></i>
-                        <h5>Prep Time: </h5>
-                        <p>{{recipe.prep_time_minutes}}</p>
-                  </div>
-                    <div class="col">
-                        <i class="fas fa-clock"></i>
-                        <h5>Cook Time: </h5>
-                        <p>{{recipe.cook_time_minutes}}</p>
-                    </div>
-                        <div class="col">
-                            <i class="fas fa-user-friends"></i>
-                            <h5>Servings: </h5>
-                            <p>{{recipe.num_servings}}</p>
-                        </div>
-              </div>
-            </div>
-            <div class="mb-4">
-                <div class="ingredients">
-                <h4>Ingredients: </h4>
-                <ul>
-                {% for ingredient in recipe['ingredients'] %}
-                    <li>{{ ingredient }}</li>
-                {% endfor %}
-                </ul>
-                    <form action="/add-to-grocery-list/{{ recipe.id }}" method="post">
-                    <button type="submit" class="btn btn-primary">Add All Ingredients to Grocery List</button>
-                </form>
-                </div>
-                <div class="instructions">
-                <h4>Instructions:</h4>
-                <ol>
-                {%for instruction in recipe.instructions:%}
-                    <li>{{instruction['display_text'] }}</li>
-                {%endfor%}
-                </ol>
-                </div>
-            </div>
+
+      <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
+        <h1 class="card-title" style="color: #0085a1;">{{ recipe.name }}</h1>
+
+        <div class="mb-3">
+          <span class="badge bg-primary me-2">Prep time: {{ recipe.prep_time_minutes or "n/a" }} min</span>
+          <span class="badge bg-primary me-2">Cook time: {{ recipe.cook_time_minutes or "n/a" }} min </span>
+
         </div>
 
+        <h5 class="mb-3">🧂 Ingredients</h5>
+        <ul class="list-group list-group-flush">
+          {% for item in recipe.ingredients %}
+            <li class="list-group-item border-0 ps-0">
+              <input type="checkbox" class="form-check-input me-2"> {{ item }}
+            </li>
+          {% endfor %}
+        </ul>
+        <form action="{{ url_for('add_to_grocery_list', recipe_id=recipe.id) }}" method="POST" class="mt-4">
+            <button type="submit" class="btn text-white shadow-sm" style="background-color: #0085a1;">
+    🛒 Add to Grocery List
+            </button>
+        </form>
+      </div>
+
+
+
+      <div class="col-md-6">
+        <img src="{{ recipe.thumbnail_url }}" alt="{{ recipe.name }}"
+             class="img-fluid h-100 w-100 object-fit-cover"
+             style="min-height: 300px;">
+      </div>
+
+    </div>
+
+    <div class="card-body">
+      <h4 class="mb-4">👨‍🍳 Instructions</h4>
+
+      <div class="list-group list-group-flush">
+        {% for instruction in recipe.instructions %}
+          <div class="list-group-item d-flex align-items-start">
+            <span class="badge bg-warning text-dark me-3">{{ loop.index }}</span>
+            <span>{{ instruction['display_text'] }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="d-flex justify-content-center gap-3 mt-5">
+  <a href="#" class="btn btn-outline-secondary shadow-sm">
+    🔝 Back to top
+  </a>
+  <a href="{{ url_for('home') }}" class="btn btn-outline-primary shadow-sm">
+    🏠 Main Page
+  </a>
 </div>
 
-<a href="#">Back to top</a>
-<br>
-<a href="/">Main Page </a>
 {% endblock %}
