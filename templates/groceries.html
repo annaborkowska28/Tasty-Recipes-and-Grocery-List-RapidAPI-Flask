@@ -1,17 +1,48 @@
 {% extends 'base.html' %}
-{% block title %}Recipes by Tasty {% endblock %}
+{% block title %}Grocery List – Recipes by Tasty{% endblock %}
 
-
-{%include 'header.html'%}
+{% include 'header.html' %}
 {% block content %}
 
+<div class="container py-5">
 
-<div class="container">
-  <h1> Grocery list</h1>
-  <ul>
-    {%for item in grocery_list: %}
-    <li>{{item.quantity}} {{item.unit}} - {{item.ingredient}} </li>
-      {%endfor%}
-  </ul>
-<a href="/" class="btn btn-primary">Back to All Recipes</a></div>
-{%endblock%}
+  <div class="card shadow rounded-4 overflow-hidden">
+    <div class="card-header bg-light d-flex align-items-center justify-content-between">
+      <h1 class="h3 mb-0 text-primary fw-bold">🛒 Grocery List</h1>
+
+      {% if recipe_id %}
+        <a href="{{ url_for('single_recipe', index=recipe_id) }}" class="btn btn-outline-primary btn-sm">
+          ← Back to Last Recipe
+        </a>
+      {% else %}
+        <a href="{{ url_for('home') }}" class="btn btn-outline-secondary btn-sm">
+          🏠 Back to Homepage
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="card-body">
+      {% if grocery_list %}
+        <ul class="list-group list-group-flush">
+          {% for item in grocery_list %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ item.quantity }} {{ item.unit }} – {{ item.ingredient }}</span>
+            <input type="checkbox" class="form-check-input">
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-muted fst-italic">Your grocery list is empty. Start adding ingredients from recipes you love!</p>
+      {% endif %}
+    </div>
+
+    <div class="card-footer text-end">
+        <a href="{{ url_for('home') }}" class="btn btn-main shadow-sm">
+          🏠 Back to Homepage
+        </a>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
