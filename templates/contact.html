@@ -50,6 +50,8 @@
                 id="name"
                 name="name"
                 type="text"
+                maxlength="40"
+                minlength="2"
                 placeholder="Enter your name..."
                 required
               />
@@ -72,6 +74,8 @@
                 id="phone"
                 name="phone"
                 type="tel"
+                maxlength="20"
+                pattern="(0048\s)?[0-9]{3}\s?[0-9]{3}\s?[0-9]{3}"
                 placeholder="Enter your phone number..."
                 required
               />
@@ -83,9 +87,12 @@
                 id="message"
                 name="message"
                 placeholder="Enter your message here..."
+                maxlength="1000"
+                minlength="2"
                 required
                 style="height: 12rem"
               ></textarea>
+                <p id="charCount">Characters left: </p>
               <label for="message">Message</label>
             </div>
             <br />
@@ -102,4 +109,37 @@
     </div>
   </div>
 </main>
+
+<!--textarea character counter-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const messageField = document.getElementById("message");
+    const counter = document.getElementById("charCount");
+    const max = messageField.maxLength;
+
+    function updateCharCount() {
+      const remaining = max - messageField.value.length;
+      counter.textContent = "Characters left: " + remaining;
+    }
+
+    // Set counter after loading
+    updateCharCount();
+
+    // Listen for changes in the textarea
+    messageField.addEventListener("input", updateCharCount);
+  });
+</script>
+
+<!--prevent sending a message that contains only spaces-->
+<script>
+  document.querySelector("form").addEventListener("submit", function (e) {
+    const message = document.getElementById("message").value.trim();
+    const name = document.getElementById("name").value.trim();
+
+    if (message.length === 0 || name.length === 0) {
+      alert("Fields cannot contain only spaces!");
+      e.preventDefault(); //
+    }
+  });
+</script>
 {% endblock %}

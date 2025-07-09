@@ -1,7 +1,7 @@
 import re
 import requests
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for, abort, flash
 from flask_bootstrap import Bootstrap5
 import os
 from dotenv import load_dotenv
@@ -71,7 +71,10 @@ def single_recipe(index):
 def contact():
     if request.method == "POST":
         contact_data = request.form
-        send_email(contact_data["name"], contact_data["email"], contact_data["phone"], contact_data["message"])
+        send_email(contact_data["name"],
+                   contact_data["email"],
+                   contact_data["phone"],
+                   contact_data["message"])
         return render_template("contact.html", msg_sent=True)
     return render_template("contact.html", msg_sent=False)
 
