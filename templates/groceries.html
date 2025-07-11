@@ -6,8 +6,8 @@
 
 <div class="container py-5">
   <div class="card shadow rounded-4 overflow-hidden">
-    <div class="card-header bg-light d-flex align-items-center justify-content-between">
-      <h1 class="h3 mb-0 text-primary fw-bold">🛒 Grocery List</h1>
+  <div class="card-header bg-light d-flex flex-wrap gap-2 align-items-center justify-content-between">
+  <h1 class="h3 mb-0 text-primary fw-bold">🛒 Grocery List</h1>
 
       {% if recipe_id %}
         <a href="{{ url_for('single_recipe', index=recipe_id) }}" class="btn btn-outline-primary btn-sm">
@@ -15,7 +15,7 @@
         </a>
       {% else %}
         <a href="{{ url_for('home') }}" class="btn btn-outline-primary btn-sm">
-          🏠 Back to Homepage
+          Back to Homepage
         </a>
       {% endif %}
     </div>
@@ -38,7 +38,7 @@
                 </span>
               </div>
 
-              <form method="POST" action="{{ url_for('remove_from_grocery_list') }}" class="remove-form" onsubmit="markAsDeleted(this)">
+              <form method="POST" action="{{ url_for('grocery.remove_from_grocery_list') }}" class="remove-form" onsubmit="markAsDeleted(this)">
                 <input type="hidden" name="ingredient" value="{{ item.ingredient }}">
                 <input type="hidden" name="unit" value="{{ item.unit }}">
                 <button type="submit" class="btn btn-outline-primary btn-sm delete-btn">Delete</button>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="card-footer text-end">
-      <form method="POST" action="{{ url_for('clear_grocery_list') }}">
+      <form method="POST" action="{{ url_for('grocery.clear_grocery_list') }}">
         <button type="submit" class="btn btn-outline-primary btn-sm">
           <i class="bi bi-trash"></i> Clear Entire List
         </button>

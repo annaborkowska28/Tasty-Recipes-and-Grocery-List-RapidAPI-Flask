@@ -13,7 +13,7 @@
 <section style="
   background-color: #e1f3f8;
   padding: 70px 0;
-" class="w-100">
+" class="w-100" xmlns="http://www.w3.org/1999/html">
 
   <div class="container-lg rounded overflow-hidden shadow">
 
@@ -30,7 +30,7 @@
                  color: #222;
                ">
             <h2 class="fw-bold">{{ recipe.name }}</h2>
-            <p>{{ recipe.description | truncate(100, True, '...') }}</p>
+            <p><strong>{{ recipe.description | truncate(100, True, '...') }}</strong></p>
           </div>
         </div>
         {% endfor %}
@@ -102,7 +102,7 @@
 
 <form action="{{ url_for('search') }}" method="GET" class="mb-4">
   <div class="input-group">
-    <input type="text" name="query" class="form-control" placeholder="Search for a recipe..." required>
+    <input type="text" name="query" class="form-control" placeholder="Search by recipe name or ingredient..." required>
 <button type="submit" class="btn text-white shadow-sm" style="background-color: #0085a1;">
   Search
 </button>

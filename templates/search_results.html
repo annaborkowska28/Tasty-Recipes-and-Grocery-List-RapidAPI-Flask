@@ -20,9 +20,18 @@
                 See more details
               </a>
             </div>
+
           </div>
+
         </div>
       {% endfor %}
+      <div class="col-12 text-center mt-4">
+  <a href="{{ url_for('home') }}" class="btn btn-outline-primary">
+    Return to home page
+  </a>
+</div>
+
+
     </div>
   {% else %}
     <p>No recipes matched your search.</p>
