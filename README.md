@@ -7,6 +7,9 @@ Tasty Recipes and Grocery List is a web application that fetches and displays re
 - Recipe Details: Shows detailed ingredients for individual recipes.
 - Add to Grocery List: Allows users to add ingredients from different recipes to a combined grocery list, summing up quantities of the same ingredients.
 -  View Grocery List: Displays the aggregated grocery list with summed quantities of ingredients.
+- Remove Ingredients: Users can delete individual items from the grocery list
+- Clear List: Allows users to fully empty the grocery list in one click
+
 - Contact Page: Users can send messages to the app creator via email.
 
 ## Technologies Used:
