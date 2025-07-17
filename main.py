@@ -5,7 +5,7 @@ from flask_bootstrap import Bootstrap5
 import os
 from dotenv import load_dotenv
 import smtplib
-from templates.grocery import grocery_bp
+from grocery import grocery_bp
 
 
 
