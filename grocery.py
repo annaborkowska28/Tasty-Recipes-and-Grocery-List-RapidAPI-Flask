@@ -22,7 +22,7 @@ unicode_fractions = {
 def extract_quantity_and_unit(ingredient):
     ingredient = ingredient.strip()
 
-    # Sprawdzenie składników opcjonalnych
+
     if any(phrase in ingredient.lower() for phrase in ["to taste", "a pinch", "as needed", "optional", "for garnish"]):
         return ingredient, None, ""
 
@@ -36,7 +36,7 @@ def extract_quantity_and_unit(ingredient):
             if raw_qty:
                 if raw_qty in unicode_fractions:
                     raw_qty = unicode_fractions[raw_qty]
-                if ' ' in raw_qty:  # np. '1 1/2'
+                if ' ' in raw_qty:
                     whole, frac = raw_qty.split()
                     quantity = int(whole) + float(Fraction(frac))
                 else:
