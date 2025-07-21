@@ -7,18 +7,36 @@ import re
 grocery_bp = Blueprint('grocery', __name__)
 grocery_counter = Counter()
 
+
+unicode_fractions = {
+    '¼': '1/4', '½': '1/2', '¾': '3/4',
+    '⅐': '1/7', '⅑': '1/9', '⅒': '1/10',
+    '⅓': '1/3', '⅔': '2/3',
+    '⅕': '1/5', '⅖': '2/5', '⅗': '3/5', '⅘': '4/5',
+    '⅙': '1/6', '⅚': '5/6',
+    '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8'
+}
+
+
 # extract quantity, unit and name
 def extract_quantity_and_unit(ingredient):
     ingredient = ingredient.strip()
-    if any(phrase in ingredient.lower() for phrase in ["to taste", "a pinch", "as needed", "optional"]):
+
+    # Sprawdzenie składników opcjonalnych
+    if any(phrase in ingredient.lower() for phrase in ["to taste", "a pinch", "as needed", "optional", "for garnish"]):
         return ingredient, None, ""
-    match = re.match(r"^\s*(\d+\s\d+/\d+|\d+/\d+|\d+|[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞])?\s*(.*)", ingredient.strip())
+
+    match = re.match(r"^\s*(\d+\s\d+/\d+|\d+/\d+|\d+|[" + "".join(unicode_fractions.keys()) + r"])?\s*(.*)", ingredient)
+
     if match:
         raw_qty = match.group(1)
         name = match.group(2).strip()
+
         try:
             if raw_qty:
-                if ' ' in raw_qty:
+                if raw_qty in unicode_fractions:
+                    raw_qty = unicode_fractions[raw_qty]
+                if ' ' in raw_qty:  # np. '1 1/2'
                     whole, frac = raw_qty.split()
                     quantity = int(whole) + float(Fraction(frac))
                 else:
@@ -31,9 +49,11 @@ def extract_quantity_and_unit(ingredient):
     else:
         name = ingredient.strip()
         quantity = 1
+
     return name, quantity, ""
 
-# ➕ Add ingredients from recipe
+
+# Add ingredients from recipe
 @grocery_bp.route('/add-to-grocery-list/<int:recipe_id>', methods=['POST'])
 def add_to_grocery_list(recipe_id):
     from main import recipes  # import here to avoid circular imports
@@ -84,6 +104,7 @@ def remove_from_grocery_list():
     ingredient_name = request.form.get('ingredient', '').strip()
     unit = request.form.get('unit', '').strip()
     key = (ingredient_name, unit)
+    print(grocery_counter)
     if key in grocery_counter:
         del grocery_counter[key]
         flash(f'Removed "{ingredient_name}" from the list.', "info")
