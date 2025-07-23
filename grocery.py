@@ -65,9 +65,20 @@ def add_to_grocery_list(recipe_id):
                 grocery_counter[(raw_ingredient.strip(), None)] = None
                 continue
             ingredient_name, quantity, unit = extract_quantity_and_unit(raw_ingredient)
-            for suffix in [", chopped", ", diced", ", shredded", ", cooked", ", minced", ", sliced"]:
-                if ingredient_name.lower().endswith(suffix):
-                    ingredient_name = ingredient_name[: -len(suffix)].strip()
+            suffix_patterns = [
+                r"\s*cooked\s+and\s+shredded$",
+                r"\s*cooked$",
+                r"\s*shredded$",
+                r"\s*chopped$",
+                r"\s*diced$",
+                r"\s*minced$",
+                r"\s*sliced$"
+            ]
+
+            for pattern in suffix_patterns:
+                ingredient_name = re.sub(pattern, "", ingredient_name, flags=re.IGNORECASE).strip()
+            ingredient_name = re.sub(r"[^\w\s]", "", ingredient_name)
+
             grams = convert_to_grams(ingredient_name, quantity, unit) if quantity is not None else None
             if grams:
                 grocery_counter[(ingredient_name, 'g')] += grams
