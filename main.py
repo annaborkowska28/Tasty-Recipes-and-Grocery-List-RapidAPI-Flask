@@ -1,8 +1,9 @@
 import requests
 from datetime import datetime
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, flash
 from flask_bootstrap import Bootstrap5
 import os
+import re
 from dotenv import load_dotenv
 import smtplib
 from grocery import grocery_bp
@@ -64,12 +65,42 @@ def single_recipe(index):
 def contact():
     if request.method == "POST":
         contact_data = request.form
-        send_email(contact_data["name"],
-                   contact_data["email"],
-                   contact_data["phone"],
-                   contact_data["message"])
+
+        name = contact_data.get("name", "").strip()
+        email = contact_data.get("email", "").strip()
+        phone = contact_data.get("phone", "").strip()
+        message = contact_data.get("message", "").strip()
+
+        errors = []
+
+        if not name:
+            errors.append("Name is required.")
+        if not email:
+            errors.append("Email is required.")
+        if not message:
+            errors.append("Message cannot be empty.")
+
+        # Simple email validation
+        if email and not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            errors.append("Invalid email format.")
+
+        # Phone number check (optional)
+        if phone and not phone.isdigit():
+            errors.append("Phone number must contain digits only.")
+
+        # Message length check
+        if len(message) > 1000:
+            errors.append("Message must be under 1000 characters.")
+
+        if errors:
+            for error in errors:
+                flash(error)
+            return render_template("contact.html", msg_sent=False)
+        #if ok
         return render_template("contact.html", msg_sent=True)
+
     return render_template("contact.html", msg_sent=False)
+
 
 
 def send_email(name, email, phone, message):
