@@ -1,0 +1,581 @@
+{
+	"info": {
+		"_postman_id": "eb9e64f1-a5e6-47fa-8f4f-819ef5a9b455",
+		"name": "TASTY API",
+		"description": "TastyAPI is a Flask-based web application that fetches recipes from the Tasty API, allows users to search for meals, view recipe details, manage a grocery list with automatic ingredient conversions to grams, and send messages via a contact form. It features a modular structure using Blueprints and integrates Bootstrap5 for styling.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37830009",
+		"_collection_link": "https://platform-api-team-3688.postman.co/workspace/8fd01dbe-f747-419a-8693-5857eb099d8d/collection/37830009-eb9e64f1-a5e6-47fa-8f4f-819ef5a9b455?action=share&source=collection_link&creator=37830009"
+	},
+	"item": [
+		{
+			"name": "Grocery List",
+			"item": [
+				{
+					"name": "C17 Merge ingredients from multiple recipes",
+					"item": [
+						{
+							"name": "Add from recipe 4707",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/add-to-grocery-list/{{firstRecipeID}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"add-to-grocery-list",
+										"{{firstRecipeID}}"
+									]
+								},
+								"description": "**Purpose:**\n\nAdds all ingredients from recipe ID 4704 to the grocery list."
+							},
+							"response": []
+						},
+						{
+							"name": "Add from recipe 48",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/add-to-grocery-list/{{fourthRecipeID}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"add-to-grocery-list",
+										"{{fourthRecipeID}}"
+									]
+								},
+								"description": "**Purpose:**\n\nAdds all ingredients from recipe ID 48 to the grocery list. Performs unit conversions and merges duplicates"
+							},
+							"response": []
+						},
+						{
+							"name": "Check grocery list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/view-grocery-list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"view-grocery-list"
+									]
+								},
+								"description": "**Purpose:**\n\nDisplays the current contents of the grocery list, organizing ingredients by name and summing quantities when duplicates are found\n\n**Response:**\n\n- 200 OK — Page shows full grocery list\n    \n- Merged items are grouped under shared names with summed quantities"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains three requests: two add ingredients from different recipes, and one shows the grocery list. If any ingredients are the same (like \"chicken breasts\"), they are automatically combined, and their quantities are added together in the final list"
+				},
+				{
+					"name": "C16 Add ingredients to the shopping list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/add-to-grocery-list/{{secondRecipeID}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"add-to-grocery-list",
+								"{{secondRecipeID}}"
+							]
+						},
+						"description": "**Purpose:** Adds all the ingredients from a selected recipe (based on its ID) to the grocery list.\n\n**Response:**\n\n- 302 Found — Redirects to /view-grocery-list\n    \n- Grocery list is updated with new items (quantities, units, conversions)"
+					},
+					"response": []
+				},
+				{
+					"name": "C18 Remove a single ingredient from the shopping list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ingredient",
+									"value": "cloves garlic",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/remove-from-grocery-list",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"remove-from-grocery-list"
+							]
+						},
+						"description": "**Purpose:** Removes a specific ingredient from the grocery list\n\n**Response:**\n\n- 302 Found — Redirects to /view-grocery-list\n    \n- Delete button temporarily changes to \"Deleted\""
+					},
+					"response": []
+				},
+				{
+					"name": "C19 Clear the entire shopping list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clear-grocery-list",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"clear-grocery-list"
+							]
+						},
+						"description": "**Purpose:** Removes all ingredients from the grocery list\n\n**Response:**\n\n- 302 Found — Redirects to /view-grocery-list\n    \n- Flash message confirms list has been cleared"
+					},
+					"response": []
+				}
+			],
+			"description": "This folder includes requests that help manage the grocery list in the tastyAPI app. The list is built from ingredients found in recipes, and the app processes them by breaking down quantities, converting units to grams, and organizing them clearly."
+		},
+		{
+			"name": "Form Tests",
+			"item": [
+				{
+					"name": "C8 Valid contact form submission",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jane.doe@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "Hello!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Purpose:** Verify whether the contact form works properly. It ensures that a visitor can send a message\n\nResponse:\n\n- Flash message confirming that the message was sent successfull\n    \n- 302 Found - Refresh\n    \n- Errors may appear if required fields are missing or invali"
+					},
+					"response": []
+				},
+				{
+					"name": "C9 Submitting an empty contact form",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": " ",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": " ",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": " ",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "message",
+									"value": " ",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Purpose:** Verifies that form validation prevents submission when fields are left empty.\n\n**Response:**\n\n- 302 Found — Redirects to /contact\n    \n- Validation errors appear for missing name, email, phone, and message"
+					},
+					"response": []
+				},
+				{
+					"name": "C10 Invalid email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jane.gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "hello",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Purpose:** Tests email field validation. Submits a form with an incorrect email address to check error handling\n\n**Response:**\n\n- 302 Found — Redirects to /contact\n    \n- inline error indicates invalid email format"
+					},
+					"response": []
+				},
+				{
+					"name": "C11 Invalid phone number (with letters)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jane@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123abc",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "hello",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Purpose:**\n\nVerifies validation for the phone field by submitting non-numeric characters. Ensures that only numeric input is accepted\n\n**Response:**\n\n- 302 Found — Redirects to /contact\n    \n- Error message for invalid phone number format"
+					},
+					"response": []
+				},
+				{
+					"name": "C12 Message field validation with only spaces",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jane@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "         ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Purpose:**\n\nVerifies if the message field blocks submissions that only contain spaces\n\n**Response:**\n\n- 302 Found — Redirects to /contact\n    \n- inline error prevents empty message submission"
+					},
+					"response": []
+				},
+				{
+					"name": "C13 Message field overflow (1000+ characters)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jane@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellhellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohell",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Response:**\n\n- 302 Found - Redirects to /contact\n    \n- Error message indicates maximum length exceeded"
+					},
+					"response": []
+				},
+				{
+					"name": "C14 Message field submission with exactly 1000 characters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jane@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Purpose:**\n\nConfirms that a message containing exactly 1000 characters is accepted by the form.\n\n**Response:**\n\n- 302 Found — Redirects to confirmation and refresh\n    \n- Flash message confirms successful message delivery"
+					},
+					"response": []
+				},
+				{
+					"name": "C15 Message field HTML tag injection test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jane@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "<h1>hello</h1>",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contact",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contact"
+							]
+						},
+						"description": "**Purpose:**\n\nVerifies if the form blocks or safely handles HTML tags in the message to prevent XSS attacks\n\n**Response:**\n\n- 302 Found — Redirects to /contact\n    \n- HTML content is rendered as plain text"
+					},
+					"response": []
+				}
+			],
+			"description": "This section contains test cases dedicated to the “Contact” form functionality. It verifies proper rendering, input validation, error handling, and successful submission behavior. These tests ensure the user can interact with the form as expected, including edge cases such as empty fields or invalid formats"
+		},
+		{
+			"name": "Recipe Browsing",
+			"item": [
+				{
+					"name": "C20 Search for recipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/search?query={{keyword}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "{{keyword}}"
+								}
+							]
+						},
+						"description": "**Purpose:** Searches for recipes that match a given keyword in either the recipe name or the ingredients\n\n**Response:**\n\n- 200 OK - HTML page showing search results matching query\n    \n- Empty results list if no match"
+					},
+					"response": []
+				},
+				{
+					"name": "C21 Detailed view of a single recipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rec/{{firstRecipeID}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rec",
+								"{{firstRecipeID}}"
+							]
+						},
+						"description": "**Purpose:** Verify that the application returns the correct HTML page displaying full details of a single recipe\n\n**Response:**\n\n- 200 OK — The page with the full recipe details is displayed"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
