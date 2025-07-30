@@ -84,7 +84,7 @@ When all fields contain acceptable inputs (valid email format, sufficient messag
 
 
 ## 5. Bug Reporting
-Each bug should be reporte.g. API, contact form)
+Each bug should be report e.g. API, contact form)
 
 - Steps to reproduce the issue
 
