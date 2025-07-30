@@ -80,15 +80,12 @@ def contact():
         if not message:
             errors.append("Message cannot be empty.")
 
-        # Simple email validation
         if email and not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             errors.append("Invalid email format.")
 
-        # Phone number check (optional)
         if phone and not phone.isdigit():
             errors.append("Phone number must contain digits only.")
 
-        # Message length check
         if len(message) > 1000:
             errors.append("Message must be under 1000 characters.")
 
