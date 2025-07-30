@@ -11,6 +11,7 @@ Screenshots from TestRail — including executed test runs and mapped test cases
 - `TASTY.postman_collection.json` – Collection with requests for testing all major API endpoints
 - `tasty-local.postman_environment.json` – Local Postman environment for testing on `localhost`
 - `testrail_to_postman.md` – Document showing which TestRail cases map to Postman requests
+- `test_plan_ENG.md` - Test plan
 - Test Cases Databasae in Notion - https://www.notion.so/TASTY-API-Manual-Test-Cases-231bedf2cbf8806aa649e4d08cc7a818?source=copy_link
 
 ## How to Use
